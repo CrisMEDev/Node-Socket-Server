@@ -1,8 +1,9 @@
 
 // Referencias al html
-const lblOnline = document.querySelector('#lblOnline');
+const lblOnline  = document.querySelector('#lblOnline');
 const lblOffline = document.querySelector('#lblOffline');
-
+const txtMensaje = document.querySelector('#txtMensaje');
+const btnEnviar  = document.querySelector('#btnEnviar');
 
 // socket del cliente que se comunica con el server
 const socket = io();
@@ -22,5 +23,21 @@ socket.on('disconnect', () => {
 
     lblOffline.style.display = '';
     lblOnline.style.display  = 'none';
+});
+
+
+btnEnviar.addEventListener( 'click', () => {
+
+    const mensaje = txtMensaje.value;
+
+    const payload = {
+        mensaje,
+        id: '123ABC',
+        date: new Date().getTime()
+    }
+
+    // Enviar mensaje al servidor
+    socket.emit( 'enviar-mensaje', payload );
+
 });
 

@@ -48,6 +48,13 @@ class Server {
             socket.on('disconnect', () => {
                 console.log('Cliente desconectado');
             });
+
+            // Callback a ejecutar cuando se escuchar el 'enviar-mensaje' del cliente
+            // El payload contiene la data que envia el cliente
+            socket.on('enviar-mensaje', ( payload ) => {
+                console.log(payload);
+            });
+
         });
 
     }
