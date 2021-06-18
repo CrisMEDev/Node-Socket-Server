@@ -20,6 +20,9 @@ class Server {
 
         // Rutas de la aplicación
         this.routes();
+
+        // Sockets
+        this.sockets();
     }
 
     middlewares(){
@@ -35,6 +38,18 @@ class Server {
     routes(){
         // Se usa un middleware para cargar ciertas rutas dependiendo de una ruta inicial
         // Ejemplo: this.app.use( this.paths.auth,       require('../routes/auth') );
+    }
+
+    sockets(){
+
+        this.io.on( 'connection', socket => {
+            console.log('Cliente conectado', socket.id);
+
+            socket.on('disconnect', () => {
+                console.log('Cliente desconectado');
+            });
+        });
+
     }
 
     listen(){
