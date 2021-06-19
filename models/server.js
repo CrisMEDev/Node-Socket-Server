@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const { socketController } = require('../sockets/controller');
+
 class Server {
 
     constructor(){
@@ -42,28 +44,7 @@ class Server {
 
     sockets(){
 
-        this.io.on( 'connection', socket => {
-            // console.log('Cliente conectado', socket.id);
-
-            // socket.on('disconnect', () => {
-            //     console.log('Cliente desconectado');
-            // });
-
-
-            // Callback a ejecutar cuando se escuchar el 'enviar-mensaje' del cliente
-            // El payload contiene la data que envia el cliente
-            socket.on('enviar-mensaje', ( payload, callback ) => {
-
-                // El nombre del emit puede ser cualquiera; simplemente se uso el mismo nombre que se usó en el cliente por simplicidad
-                this.io.emit( 'enviar-mensaje', payload );
-
-                const id = 123456123;
-                // Se llama a el callback que se tiene desde el lado del cliente para su ejecución
-                callback({ id, fecha: new Date().getTime() });
-
-            });
-
-        });
+        this.io.on( 'connection', socketController );
 
     }
 
