@@ -43,16 +43,20 @@ class Server {
     sockets(){
 
         this.io.on( 'connection', socket => {
-            console.log('Cliente conectado', socket.id);
+            // console.log('Cliente conectado', socket.id);
 
-            socket.on('disconnect', () => {
-                console.log('Cliente desconectado');
-            });
+            // socket.on('disconnect', () => {
+            //     console.log('Cliente desconectado');
+            // });
+
 
             // Callback a ejecutar cuando se escuchar el 'enviar-mensaje' del cliente
             // El payload contiene la data que envia el cliente
             socket.on('enviar-mensaje', ( payload ) => {
-                console.log(payload);
+
+                // El nombre del emit puede ser cualquiera; simplemente se uso el mismo nombre que se usó en el cliente por simplicidad
+                this.io.emit( 'enviar-mensaje', payload );
+
             });
 
         });

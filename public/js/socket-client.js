@@ -12,19 +12,24 @@ const socket = io();
 // Al dispararse este evento como su nombre lo indica;
 // se dispara cuando se tiene una conexión al server
 socket.on('connect', () => {
-    console.log('Conectado');
+    // console.log('Conectado');
 
     lblOffline.style.display = 'none';
     lblOnline.style.display  = '';
 });
 
 socket.on('disconnect', () => {
-    console.log('Desconectado del servidor');
+    // console.log('Desconectado del servidor');
 
     lblOffline.style.display = '';
     lblOnline.style.display  = 'none';
 });
 
+
+// Se escucha el evento 'enviar-mensaje' del servidor
+socket.on( 'enviar-mensaje', ( payload ) => {
+    console.log(payload);
+});
 
 btnEnviar.addEventListener( 'click', () => {
 
@@ -36,7 +41,7 @@ btnEnviar.addEventListener( 'click', () => {
         date: new Date().getTime()
     }
 
-    // Enviar mensaje al servidor
+    // Enviar mensaje al servidor desde el cliente
     socket.emit( 'enviar-mensaje', payload );
 
 });
