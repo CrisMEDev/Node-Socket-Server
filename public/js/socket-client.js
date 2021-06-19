@@ -42,7 +42,9 @@ btnEnviar.addEventListener( 'click', () => {
     }
 
     // Enviar mensaje al servidor desde el cliente
-    socket.emit( 'enviar-mensaje', payload );
+    socket.emit( 'enviar-mensaje', payload, ( dataServer ) => { // El id es el dato recibido desde el server por medio del keepAlive que viene en http
+        console.log('Desde el server: ', dataServer);
+    });
 
 });
 
